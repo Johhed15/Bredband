@@ -1,0 +1,9 @@
+/.quarto/
+.Rproj.user
+
+*Rproj
+/Data
+.Rhistory
+.RData
+
+/Mediabank

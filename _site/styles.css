@@ -1,0 +1,203 @@
+/* ==== Tema-variabler (behåll gärna) ==== */
+:root{
+  --accent:#B81867;
+  --accent-2:#a61c6e;
+  --text:#1f1f1f;
+  --muted:#666;
+  --bg:#ffffff;
+  --bg-soft:#f3dce8;
+  --border:#e6e6e6;
+
+  /* övergripande maxbredd kan vara kvar om du vill, men styr nu mest bakgrunden */
+  --maxw:1200px;
+
+  /* DEN HÄR styr bredden på själva vita "kortet" = samma på alla .qmd */
+  --contentw:1100px;
+}
+
+/* Bas */
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:#f2f2f6;
+  line-height:1.6;
+}
+
+/* ==== HEADER / NAVBAR (Quarto) ==== */
+#quarto-header .navbar{
+  background:#B81867 !important;
+}
+#quarto-header .navbar .navbar-brand,
+#quarto-header .navbar .nav-link{
+  color:#fff !important;
+  font-weight:700;
+}
+#quarto-header .navbar .nav-link.active,
+#quarto-header .navbar .nav-link:hover,
+#quarto-header .navbar .nav-link:focus{
+  color:#fff !important;
+  text-decoration:underline;
+}
+#quarto-header .navbar-toggler{
+  border-color:rgba(255,255,255,.6);
+}
+#quarto-header .navbar-toggler-icon{
+  filter:invert(1) grayscale(1);
+}
+
+/* Låt själva Quarto-grid fylla bredden (ingen smal container) */
+.quarto-container{
+  max-width: 100%;
+}
+
+/* (valfritt: om du vill ha en svag maxbredd på hela sidan)
+.page-columns{
+  max-width: var(--maxw);
+  margin-left:auto;
+  margin-right:auto;
+}
+*/
+
+/* ==== SIDEBAR ==== */
+#quarto-sidebar{
+  background:var(--bg-soft);
+  border-right:2px solid var(--border);
+}
+#quarto-sidebar .sidebar-menu-container{
+  padding:1rem;
+}
+#quarto-sidebar a{
+  color:#5a3ab6;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+#quarto-sidebar a:hover{ text-decoration:none; }
+
+/* ==== TOC i marginal ==== */
+#quarto-margin-sidebar .active > a,
+#quarto-margin-sidebar a.active{
+  font-weight:700; color:var(--accent);
+}
+
+/* ==== INNEHÅLL / body === */
+.page-columns .content{
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  padding:28px 36px;
+
+  /* Samma bredd på alla .qmd – bara ändra var(--contentw) i :root */
+  max-width: var(--contentw);
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* Typografi */
+.page-columns .content h1.title{
+  color:var(--accent);
+  font-weight:900;
+}
+h2{ color:var(--accent); font-size:1.6rem; margin:2rem 0 .5rem 0; font-weight:800; }
+h3{ color:#7a2d57; margin:1.2rem 0 .3rem 0; font-weight:700; }
+h2 + p, h3 + p{ margin-top:.4rem; }
+p{ margin:1rem 0; }
+a{ color:#2a55cc; }
+a:hover{ text-decoration:none; }
+hr{ border:0; border-top:1px solid var(--border); margin:1.5rem 0; }
+ul,ol{ padding-left:1.25rem; }
+li{ margin:.35rem 0; }
+img{ max-width:100%; height:auto; }
+pre,code{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+pre{
+  background:#f7f7f7; border:1px solid #ececec; border-radius:8px;
+  padding:.85rem; overflow:auto;
+}
+
+/* ==== Minska gapet efter titel ==== */
+.quarto-title-block{ margin-bottom:.5rem !important; }
+.content > :first-child{ margin-top:0 !important; }
+
+/* ==== Panel-tabset ==== */
+.panel-tabset > .nav-tabs{
+  border-bottom:1px solid #dee2e6; margin-bottom:1rem; gap:.5rem;
+}
+.panel-tabset > .nav-tabs .nav-link{
+  padding:.5rem .75rem; border:1px solid transparent;
+  border-radius:.375rem .375rem 0 0;
+}
+.panel-tabset > .nav-tabs .nav-link.active{
+  border-color:#dee2e6 #dee2e6 #fff; background:#fff;
+}
+
+/* ==== Footer ==== */
+.page-columns .content .page-footer{
+  margin-top:3rem; padding-top:1rem; border-top:1px solid var(--border);
+  color:var(--muted); font-size:.95rem;
+}
+
+/* ==== Responsive ==== */
+@media (max-width: 992px){
+  .page-columns .content{ padding:20px 18px; border-radius:10px; }
+}
+
+
+/* ==== fig centrerad ==== */
+.figure-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Container för nedladdningsknappen */
+.download-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Själva knappen */
+.download-btn {
+  background-color: #0066CC;
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  white-space: nowrap;
+}
+
+/* Menyn (dold som standard) */
+.download-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+/* Länkar i menyn */
+.download-menu a {
+  display: block;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  color: #333;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Hover-effekt på länkar */
+.download-menu a:hover {
+  background-color: #f2f2f2;
+}
+
+/* Visa meny vid hover */
+.download-dropdown:hover .download-menu {
+  display: block;
+}
