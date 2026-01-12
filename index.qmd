@@ -152,7 +152,7 @@ När det gäller nedströms så visar alla kommuner en positiv utveckling med ö
 
 # Mobilt
 
-I detta avsnitt presenteras den genomsnittliga mobiltäckningen aggregerat över samtliga operatörer. Tabellen nedan gör det möjligt att sortera data efter kommun, år eller variabel. Observera att inte alla kommuner har data för samtliga variabler och år.
+I detta avsnitt presenteras den genomsnittliga mobilmålstäckningen aggregerat över samtliga operatörer. Tabellen nedan gör det möjligt att sortera data efter kommun, år eller variabel. Eftersom datan visar den sammanlagda mobiltäckningen för alla operatörer kan den ge en missvisande bild av den faktiska situationen, då enskilda användare inte har tillgång till, eller använder, samtliga operatörer samtidigt. Observera att inte alla kommuner har data för samtliga variabler och år.
 
 Data är hämtat från @pts.
 
@@ -169,6 +169,8 @@ image_read("Mediabank/mobil.png") %>%
 
 ::: {.callout-note collapse="true"}
 ## Variabler som ingår i mätningen
+
+Mobilmålet givet aggregerad täckning av alla operatörer:
 
 -   Totalt, alla områden där man normalt befinner sig
 -   Statistisk tätort, 30 Mbit/s, handhållen terminal utomhus\
@@ -193,12 +195,8 @@ image_read("Mediabank/mobil.png") %>%
 mobilt_wide <- readRDS("Data/mobilt_wide.rds")
 # tar ut åren
 year_cols <- names(mobilt_wide)[grepl("^[0-9]{4}$", names(mobilt_wide))]
-# Skicka till JS
-mobilt_json <- toJSON(mobilt_wide, dataframe = "rows", auto_unbox = TRUE)
-years_json <- toJSON(year_cols, auto_unbox = TRUE)
 
-
-# Skicka data till JavaScript
+# Skicka data till JSON
 mobilt_json <- toJSON(mobilt_wide, dataframe = "rows", auto_unbox = TRUE)
 years_json  <- toJSON(year_cols, auto_unbox = TRUE)
 
@@ -287,6 +285,120 @@ document.addEventListener('DOMContentLoaded', function() {
 ))
 ```
 
+
+
+
+## Per operatör
+
+```{r}
+# läser in data
+mobilt_wide <- readRDS("Data/mobilt_wide_op.rds")
+
+year <- unique(mobilt_wide$År)
+```
+
+För att ge en mer rättvisande och praktiskt relevant beskrivning av användarupplevelsen så redovisas också resultaten av mobilmålet givet täckning per operatör. I @tbl-mobilt_operator presenteras mobilmålet givet täckning för år `r year` uppdelat på operatörerna Telenor, Tele2, Telia Company och Tre.
+
+```{r, results='asis'}
+#| label: tbl-mobilt_operator
+#| tbl-cap: ""
+
+
+# tar ut åren
+operators <- c("Telenor", "Tele2","Telia", "Tre")
+
+# Skicka data till JSON
+mobilt_json <- toJSON(mobilt_wide, dataframe = "rows", auto_unbox = TRUE)
+operators_json  <- toJSON(operators, auto_unbox = TRUE)
+
+cat(paste0(
+"
+<div style='text-align: center; margin-bottom: 1em;'>
+  <label for='coverage-select' style='display: block; margin-bottom: 0.5em;'>Välj variabel för tabell:</label>
+  <select id='coverage-select2' class='form-select' style='max-width: 420px; display: inline-block;'></select>
+</div>
+
+<h4 id='table-title2'>Totalt alla områden där man normalt befinner sig</h4>
+
+<table id='mobilt-table2' class='table table-striped table-bordered'>
+  <thead></thead>
+  <tbody></tbody>
+</table>
+
+<p style='margin-top: 1em; font-style: italic;'>
+  Källa: Post- och telestyrelsen (PTS)
+</p>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const mobiltData = ", mobilt_json, ";
+  const years = ", operators_json, ";
+
+  const select = document.getElementById('coverage-select2');
+  const coverages = [...new Set(mobiltData.map(d => d.coverage))];
+
+  // Sortera så att 'Totalt...' alltid först
+  coverages.sort((a,b) => {
+    if(a === 'Totalt alla områden där man normalt befinner sig') return -1;
+    if(b === 'Totalt alla områden där man normalt befinner sig') return 1;
+    return a.localeCompare(b);
+  });
+
+  // Lägg till options
+  coverages.forEach(cov => {
+    const opt = document.createElement('option');
+    opt.value = cov;
+    opt.textContent = cov;
+    select.appendChild(opt);
+  });
+
+  // Funktion för att rendera tabell
+  function renderTable(coverage) {
+    const rows = mobiltData.filter(d => d.coverage === coverage);
+    document.getElementById('table-title2').textContent = coverage;
+
+    const thead = document.querySelector('#mobilt-table2 thead');
+    thead.innerHTML = '';
+    const headerRow = document.createElement('tr');
+    ['Kommun / län', ...years].forEach(h => {
+      const th = document.createElement('th');
+      th.textContent = h;
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+
+    const tbody = document.querySelector('#mobilt-table2 tbody');
+    tbody.innerHTML = '';
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      const tdName = document.createElement('td');
+      tdName.textContent = r.kommun_lan_riket;
+      tr.appendChild(tdName);
+      years.forEach(y => {
+        const td = document.createElement('td');
+        td.textContent = r[y] ?? '';
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Rendera default
+  renderTable('Totalt alla områden där man normalt befinner sig');
+
+  // Lyssna på dropdownändring
+  select.addEventListener('change', e => {
+    renderTable(e.target.value);
+  });
+});
+</script>
+"
+))
+```
+
+
+Genom att titta på mobilmålstäckningen per operatör så ser vi att resultaten är lägre än de aggregerade i @tbl-mobilt2. Tele2 är den operatören som generellt har bäst täckning i länet sett till 'Totalt alla områden där man normalt befinner sig', på 94,36 %. Lägst genomsnittlig täckning har Tre, med 91,67 %, täckningen för Tre varierar dessutom mycket mellan kommunerna; operatören uppvisar både de högsta och de lägsta värdena i olika områden.
+
 ## Tillgång till 5G
 
 Detta avsnitt beskriver tillgången till 5G för hushåll i länets kommuner, uppdelat på områdestyp: tätbebyggda områden och glesbygd. Redovisningen omfattar både antal och andel hushåll med tillgång till 5G.
@@ -311,8 +423,6 @@ for (r in c('Tätbyggt', 'Glesbygd')) {
   
 }
 ```
-
-
 :::
 
 I tätbyggda områden så har nästan alla hushåll tillgång till 5G i länets kommuner, men på glesbyggden är det något lägre andelar, där Heby har den lägsta andelen på 77,2 procent och Uppsala kommun har näst lägst andel på 90,9 procent.

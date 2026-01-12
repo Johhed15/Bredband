@@ -14,6 +14,7 @@
   upplat_colors <- settings$upplat_colors
   source("Script/load_save_data.R")
   source("Script/create_save_plots.R")
+  source("Script/create_tasbles.R")
 }
 
 
@@ -35,3 +36,5 @@ teknik()
 
 ## Tabell till mobildata
 mobilt_agg_tbl()
+
+mobilt_tbl()
