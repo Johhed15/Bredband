@@ -17,22 +17,11 @@ Detta gäller tex data från konsumtionskompassens sida och SMHI gällande tempe
 
 ## Följ sedan
 
--   Just nu måste funktionern i Script/create_table som heter 'tab_alder_class' tas bort då den endast fungerar på uppsalas kommuner(gör automatisk)
-
 -   I Script/settings sätt kommunnamn, kommunkod, län och länskod till det som önskas. Sätt också färgkoder för kommuner här.
 
 -   En del färger sätts i Script/create_save_plot, kör ctrl F och sök efter 'färg' för att hitta de ställen där färg används
 
 -   Kör Script/run_all_functions för att ladda ner all data och spara grafer
-
--   Här hittas också kommentarer om eventuell manuell nedladdning av filer vilket för denna rapport är:
-
-    - "data-och-statistik-fororenade-omraden-fororenade-omraden-.csv" laddas ned från: https://www.naturvardsverket.se/data-och-statistik/fororenade-omraden/fororenade-omraden/
-  
-    - geo_data() tydligt markerad funktion i load_save_data() och i run_all_functions()
-    
-    -  vatten_geo() tydligt markerad funktion i load_save_data()
-
 
 -   I terminalen skriv \* quarto render
 
