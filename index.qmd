@@ -82,6 +82,7 @@ Uppgifterna avser situationen den 1 oktober respektive år. Till och med 2014 av
 #| label: fig-tillbred_gb
 #| fig-cap: ""
 #| fig-alt: "Figuren visar andelen som har tillgång till eller möjlighet att ansluta till bredband om minst 1 Gbit i sekunden för länets kommuner från 2017 till 2024."
+#| fig-height: 7
 
 tillgang_bred_gb()
 ```
@@ -106,6 +107,7 @@ Data är hämtat från @kolada som hänvisar vidare till @pts
 #| label: fig-tillbred
 #| fig-cap: ""
 #| fig-alt: "Figuren visar andelen som har tillgång till fast bredband om minst 100 Mbit i sekunden för länets kommuner från 2010 till 2024."
+#| fig-height: 7
 
 tillgang_bred()
 ```
@@ -285,9 +287,6 @@ document.addEventListener('DOMContentLoaded', function() {
 ))
 ```
 
-
-
-
 ## Per operatör
 
 ```{r}
@@ -395,7 +394,6 @@ document.addEventListener('DOMContentLoaded', function() {
 "
 ))
 ```
-
 
 Genom att titta på mobilmålstäckningen per operatör så ser vi att resultaten är lägre än de aggregerade i @tbl-mobilt2. Tele2 är den operatören som generellt har bäst täckning i länet sett till 'Totalt alla områden där man normalt befinner sig', på 94,36 %. Lägst genomsnittlig täckning har Tre, med 91,67 %, täckningen för Tre varierar dessutom mycket mellan kommunerna; operatören uppvisar både de högsta och de lägsta värdena i olika områden.
 
