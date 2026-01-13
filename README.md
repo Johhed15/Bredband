@@ -1,6 +1,6 @@
 # Draft Miljö-rapport
 
-Detta är ett Quarto-projekt som visualiserar och analyserar miljön i Uppsala län, men med enkla inställningsförändringar så kan den anpassas till alla län i Sverige.
+Detta är ett Quarto-projekt som visualiserar och analyserar bredband/internetuppkoplingen i Uppsala län, men med enkla inställningsförändringar så kan den anpassas till alla län i Sverige.
 
 ## Struktur
 
@@ -8,12 +8,6 @@ Detta är ett Quarto-projekt som visualiserar och analyserar miljön i Uppsala l
 -   `Data/` – alla datakällor
 -   `Script/` – R-skript för laddning och bearbetning
 -   `Figurer/` – alla visualiseringar utom interaktiva grafer
-
-## Hur man bygger webbplatsen
-
-# Det finns en del manuella nedladdningar som hittas i 'Script/create_save_plots'
-
-Detta gäller tex data från konsumtionskompassens sida och SMHI gällande temperatur, vid varje aktuell graf finns det instruktioner med länkar.
 
 ## Följ sedan
 
