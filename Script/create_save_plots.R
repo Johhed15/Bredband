@@ -20,6 +20,12 @@
 }
 
 
+if (!file.exists('Figurer')){
+  dir.create('Figurer')
+}
+
+
+
 ########### Tillgång fast bredband ###########
 
 tillgang_bred <- function(){

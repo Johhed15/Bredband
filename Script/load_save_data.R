@@ -68,6 +68,7 @@ dest_mobiltackning <- file.path("Data", "mobiltackning.xlsx")
 # Ladda ned filerna
 download.file(url_mobiltackning, dest_mobiltackning, mode = "wb")
 
+print('Nedladdning av "mobiltackning.xlsx" har genomförts')
 # Teknik 
 url_teknik <- 'https://statistik.pts.se/media/b2rhdc1g/tabellbilaga-teknik-1-1.xlsx'
 
@@ -76,3 +77,5 @@ teknik <- file.path("Data", "teknik.xlsx")
 
 # Ladda ned filerna
 download.file(url_teknik, teknik, mode = "wb")
+
+print('Nedladdning av "teknik.xlsx" har genomförts')

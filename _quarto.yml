@@ -42,3 +42,5 @@ execute:
   message: false
 
 editor: visual                  # Quarto Editor-läge i RStudio
+
+
