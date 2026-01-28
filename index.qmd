@@ -464,7 +464,7 @@ min_a <- round(sort(df$`Tillgång via NR (5G)`)[1:2]*100,1)
 ```
 :::
 
-I tätbyggda områden så har nästan alla hushåll tillgång till 5G i länets kommuner, men på glesbyggden är det något lägre andelar, där Heby har den lägsta andelen på `r min_a[1]` procent och Uppsala kommun har näst lägst andel på `r min_a[2]` procent.
+I tätbyggda områden så har nästan alla hushåll tillgång till 5G i länets kommuner, men på glesbygden är det något lägre andelar, där Heby har den lägsta andelen på `r min_a[1]` procent och Uppsala kommun har näst lägst andel på `r min_a[2]` procent.
 
 Notera att skalan på x-axeln skiljer sig för 'Antal hushåll' mellan Tätbyggt och Glesbygd.
 
